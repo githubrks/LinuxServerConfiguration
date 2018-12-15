@@ -67,11 +67,13 @@ Movie Catalog App: http://movies.54.205.147.108.xip.io/
 
 	sudo apt-get update
 	sudo apt-get upgrade
+	sudo apt-get update && sudo apt-get dist-upgrade
 
 ## Change the SSH port from 22 to 2200
 
-1. Use `sudo nano /etc/ssh/sshd_config` and then change Port 22 to Port 2200 , save & quit.
-2. Reload SSH using `sudo service ssh restart`
+1. Use `sudo nano /etc/ssh/sshd_config`
+2. Change Port 22 to Port 2200 and PermitRootLogin to 'no', save & quit.
+3. Reload SSH using `sudo service ssh restart`
 
 ## Change the timezone to UTC
 
