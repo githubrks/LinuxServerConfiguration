@@ -4,7 +4,8 @@ This is the Linux configuration project for "Full Stack Developer Nanodegree" on
 In this project, a Linux virtual machine needs to be configurated to support the Movie Catalog website.
 
 Server IP ADDRESS: 54.205.147.108
-Application HTTP ADDRESS: http://movies.54.205.147.108.xip.io/
+
+Movie Catalog App: http://movies.54.205.147.108.xip.io/
 
 ## Tasks
 
@@ -14,8 +15,9 @@ Application HTTP ADDRESS: http://movies.54.205.147.108.xip.io/
 4. Give the grader the permission to sudo
 5. Update all currently installed packages
 6. Change the SSH port from 22 to 2200
-7. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
-8. Install and configure Apache to serve a Python mod_wsgi application
+7. Configure the local timezone to UTC
+8. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+9. Install and configure Apache to serve a Python mod_wsgi application
 10. Install and configure PostgreSQL:
 	- Do not allow remote connections
 	- Create a new user named catalog that has limited permissions to your catalog application database
@@ -29,7 +31,7 @@ Application HTTP ADDRESS: http://movies.54.205.147.108.xip.io/
 3. Open the terminal and type in
 	```chmod 600 ~/.ssh/LightsailDefaultKey-us-east-1.pem```
 4. In your terminal, type in
-	```ssh -i "LightsailDefaultKey-us-east-1" ubuntu@54.205.147.108```
+	```ssh -i ~/.ssh/LightsailDefaultKey-us-east-1 ubuntu@54.205.147.108```
 
 
 ## Create a new user named grader
@@ -53,13 +55,13 @@ Application HTTP ADDRESS: http://movies.54.205.147.108.xip.io/
 	Copy the public key generated on your local machine to this file and save
 	```
 	$ chmod 700 .ssh
-	$ chmod 644 .ssh/authorized_keys
+	$ chmod 600 .ssh/authorized_keys
 	```
 	
 3. Reload SSH using `sudo service ssh restart`
 4. Use ssh to login with the new user `grader`
 
-	`ssh -i [privateKeyFilename] grader@54.205.147.108`
+	`ssh -i [~/.ssh/privateKeyFilename] grader@54.205.147.108`
 
 ## Update all currently installed packages
 
@@ -71,6 +73,11 @@ Application HTTP ADDRESS: http://movies.54.205.147.108.xip.io/
 1. Use `sudo nano /etc/ssh/sshd_config` and then change Port 22 to Port 2200 , save & quit.
 2. Reload SSH using `sudo service ssh restart`
 
+## Change the timezone to UTC
+
+1. Configure the time zone sudo dpkg-reconfigure tzdata
+
+
 ## Configure the Uncomplicated Firewall (UFW)
 
 Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
@@ -78,6 +85,7 @@ Configure the Uncomplicated Firewall (UFW) to only allow incoming connections fo
 	sudo ufw allow 2200/tcp
 	sudo ufw allow 80/tcp
 	sudo ufw allow 123/udp
+	sudo ufw deny ssh
 	sudo ufw enable 
 
 ## Install and configure Apache to serve a Python mod_wsgi application
