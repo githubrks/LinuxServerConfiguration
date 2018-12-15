@@ -3,7 +3,7 @@
 This is the Linux configuration project for "Full Stack Developer Nanodegree" on Udacity.
 In this project, a Linux virtual machine needs to be configurated to support the Movie Catalog website.
 
-Server IP ADDRESS: 54.205.147.108
+Server IP ADDRESS: 54.205.147.108  SSH PORT: 2200
 
 Movie Catalog App: http://movies.54.205.147.108.xip.io/
 
